@@ -2,6 +2,7 @@ name: CI
 on:
   push:
     branches: [ "master" ]
+
   pull_request:
     branches: [ "master" ]
 
@@ -10,16 +11,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    env:
+      TEST: ${{ secrets.TEST }}
     steps:
       - uses: actions/checkout@v3
 
       - name: Get first chars secret
         id: get_secret
-        secrets:
-          TEST: ${{ secrets.TEST }}
         #run: cat ${{ secrets.TEST }} | cut -c1,2
-        run: echo $TEST | cut -c1,2
+        run: echo ${{ env.TEST }} | cut -c1,2
 
       - name: Echo result
-        run: echo Hey -- ${{ steps.get_secret.outputs.get_secret }} -- Hey
+        run: echo Hey -- ${{ steps.get_secret.outputs.* }} -- Hey
