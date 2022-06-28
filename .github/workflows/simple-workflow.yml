@@ -16,8 +16,10 @@ jobs:
 
       - name: Get first chars secret
         id: get_secret
+        secrets:
+          TEST: ${{ secrets.TEST }}
         #run: cat ${{ secrets.TEST }} | cut -c1,2
-        run: echo toto | cut -c1,2
+        run: echo $TEST | cut -c1,2
 
       - name: Echo result
-        run: echo Hey -- ${{ steps.filter.outputs.get_secret }} -- Hey
+        run: echo Hey -- ${{ steps.get_secret.outputs.get_secret }} -- Hey
