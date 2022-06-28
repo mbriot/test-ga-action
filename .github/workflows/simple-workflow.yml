@@ -19,7 +19,7 @@ jobs:
       - name: Get first chars secret
         id: get_secret
         #run: cat ${{ secrets.TEST }} | cut -c1,2
-        run: echo "::set-output name=first_chars_secret::$(${{ env.TEST }} | cut -c1,2)"
+        run: echo "::set-output name=first_chars_secret::$((${{ env.TEST }} | cut -c1,2))"
 
       - name: Echo result
         run: echo Hey -- ${{ steps.get_secret.outputs.first_chars_secret }} -- Hey
